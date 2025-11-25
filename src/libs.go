@@ -75,13 +75,15 @@ func banner(s ssh.Session) {
 
 	//define banner
 	type bStruct struct {
-		Text    string
-		Res     string
-		Padding int
+		Text     string
+		Res      string
+		txtColor string
+		bgColor  string
+		Padding  int
 	};b := bStruct {
 		Text:    "sshat",
 		Res:     colors["bgBlue"],
-		txtColor:"\033[37;44m"
+		txtColor:"\033[30;44m",
 		bgColor: colors["bgBlue"],
 		Padding: (width/2)-(len(bannerText)/2),
 	}
