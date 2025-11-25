@@ -1,0 +1,7 @@
+["port"] := 2222
+["log level"] := "info"
+["logins"] := |
+  ["admins file"] := ".a.gomn"
+  ["file"] := ".l.gomn"
+  ["no login"] := false
+|
