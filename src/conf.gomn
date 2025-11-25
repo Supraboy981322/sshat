@@ -5,3 +5,4 @@
   ["file"] := ".l.gomn"
   ["no login"] := false
 |
+["banner"] := "sshat"

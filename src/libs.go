@@ -1,9 +1,13 @@
 package main
 
 import (
+	"io"
+//	"fmt"
+//	"strconv"
 	"math/big"
 	"crypto/rand"
 	randFallback "math/rand"
+	"github.com/gliderlabs/ssh"
 	"github.com/charmbracelet/log"
 )
 
@@ -45,4 +49,51 @@ func randInt64(m int) int {
 	}
 
 	return int(i.Int64())
+}
+
+
+func send(s ssh.Session, str string) {
+	io.WriteString(s, str+"\n")
+}
+func sendLn(s ssh.Session, str string) {
+	send(s, str+"\n")
+}
+func cls(s ssh.Session) {
+	send(s, "\033[0m\033[2J\033[H")
+}
+func toStart(s ssh.Session) {
+	send(s, "\033[2J")
+}
+func cll(s ssh.Session) {
+	send(s, "\033[0K")
+}
+func banner(s ssh.Session) {
+//	ctx := s.Context()
+	pty, _, _ := s.Pty()
+	window := pty.Window
+	width := window.Width
+
+	//define banner
+	type bStruct struct {
+		Text    string
+		Res     string
+		Padding int
+	};b := bStruct {
+		Text:    "sshat",
+		Res:     colors["bgBlue"],
+		txtColor:"\033[37;44m"
+		bgColor: colors["bgBlue"],
+		Padding: (width/2)-(len(bannerText)/2),
+	}
+	 
+	//construct banner
+	for i := 0; i < b.Padding; i++ {
+		b.Res += " "
+	};b.Res += colors["off"]+b.txtColor+b.Text+b.bgColor
+	for i := 0; i < b.Padding; i++ {
+		b.Res += " "
+	};b.Res += colors["off"]
+
+	cls(s)
+	send(s, b.Res)
 }

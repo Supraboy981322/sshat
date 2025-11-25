@@ -87,4 +87,9 @@ func init() {
 		portInt = 2222
 		log.Warnf("port not defined, defaulting to %d", portInt)
 	};port = strconv.Itoa(portInt)
+ 
+	if bannerText, ok = conf["banner"].(string); !ok {
+		bannerText = "sshat"
+		log.Warnf("banner text not defined, defaulting to %s", bannerText)
+	}
 }
